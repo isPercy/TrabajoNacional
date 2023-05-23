@@ -1,0 +1,321 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="ModelStoreContainer">
+    <EntitySet Name="Rol" EntityType="Model.Store.Rol" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Requerimientos" EntityType="Model.Store.Requerimientos" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Tipo_Requerimiento" EntityType="Model.Store.Tipo_Requerimiento" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Estado" EntityType="Model.Store.Estado" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UsuariosSet" EntityType="Model.Store.UsuariosSet" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="RolRequerimientos" Association="Model.Store.RolRequerimientos">
+      <End Role="Rol" EntitySet="Rol" />
+      <End Role="Requerimientos" EntitySet="Requerimientos" />
+    </AssociationSet>
+    <AssociationSet Name="RolUsuarios" Association="Model.Store.RolUsuarios">
+      <End Role="Rol" EntitySet="Rol" />
+      <End Role="Usuarios" EntitySet="UsuariosSet" />
+    </AssociationSet>
+    <AssociationSet Name="Tipo_RequerimientoRequerimientos" Association="Model.Store.Tipo_RequerimientoRequerimientos">
+      <End Role="Tipo_Requerimiento" EntitySet="Tipo_Requerimiento" />
+      <End Role="Requerimientos" EntitySet="Requerimientos" />
+    </AssociationSet>
+    <AssociationSet Name="EstadoRequerimientos" Association="Model.Store.EstadoRequerimientos">
+      <End Role="Estado" EntitySet="Estado" />
+      <End Role="Requerimientos" EntitySet="Requerimientos" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Rol">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre_Rol" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Requerimientos">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Prioridad" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="RolID" Type="int" Nullable="false" />
+    <Property Name="Tipo_RequerimientoID" Type="int" Nullable="false" />
+    <Property Name="EstadoID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Tipo_Requerimiento">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre_TipoReq" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Estado">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre_estado" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UsuariosSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Correo" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Contrasenia" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="RolID" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="RolRequerimientos">
+    <End Role="Rol" Type="Model.Store.Rol" Multiplicity="1" />
+    <End Role="Requerimientos" Type="Model.Store.Requerimientos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rol">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Requerimientos">
+        <PropertyRef Name="RolID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RolUsuarios">
+    <End Role="Rol" Type="Model.Store.Rol" Multiplicity="1" />
+    <End Role="Usuarios" Type="Model.Store.UsuariosSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rol">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Usuarios">
+        <PropertyRef Name="RolID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Tipo_RequerimientoRequerimientos">
+    <End Role="Tipo_Requerimiento" Type="Model.Store.Tipo_Requerimiento" Multiplicity="1" />
+    <End Role="Requerimientos" Type="Model.Store.Requerimientos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tipo_Requerimiento">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Requerimientos">
+        <PropertyRef Name="Tipo_RequerimientoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="EstadoRequerimientos">
+    <End Role="Estado" Type="Model.Store.Estado" Multiplicity="1" />
+    <End Role="Requerimientos" Type="Model.Store.Requerimientos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Estado">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Requerimientos">
+        <PropertyRef Name="EstadoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="ModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Rol" EntityType="Model.Rol" />
+          <EntitySet Name="Requerimientos" EntityType="Model.Requerimientos" />
+          <EntitySet Name="Tipo_Requerimiento" EntityType="Model.Tipo_Requerimiento" />
+          <EntitySet Name="Estado" EntityType="Model.Estado" />
+          <EntitySet Name="UsuariosSet" EntityType="Model.Usuarios" />
+          <AssociationSet Name="RolRequerimientos" Association="Model.RolRequerimientos">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="Requerimientos" EntitySet="Requerimientos" />
+          </AssociationSet>
+          <AssociationSet Name="RolUsuarios" Association="Model.RolUsuarios">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="Usuarios" EntitySet="UsuariosSet" />
+          </AssociationSet>
+          <AssociationSet Name="Tipo_RequerimientoRequerimientos" Association="Model.Tipo_RequerimientoRequerimientos">
+            <End Role="Tipo_Requerimiento" EntitySet="Tipo_Requerimiento" />
+            <End Role="Requerimientos" EntitySet="Requerimientos" />
+          </AssociationSet>
+          <AssociationSet Name="EstadoRequerimientos" Association="Model.EstadoRequerimientos">
+            <End Role="Estado" EntitySet="Estado" />
+            <End Role="Requerimientos" EntitySet="Requerimientos" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre_Rol" Type="String" Nullable="false" />
+          <NavigationProperty Name="Requerimientos" Relationship="Model.RolRequerimientos" FromRole="Rol" ToRole="Requerimientos" />
+          <NavigationProperty Name="Usuarios" Relationship="Model.RolUsuarios" FromRole="Rol" ToRole="Usuarios" />
+        </EntityType>
+        <EntityType Name="Requerimientos">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" Nullable="false" />
+          <Property Name="Prioridad" Type="String" Nullable="false" />
+          <NavigationProperty Name="Rol" Relationship="Model.RolRequerimientos" FromRole="Requerimientos" ToRole="Rol" />
+          <Property Name="RolID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Tipo_Requerimiento" Relationship="Model.Tipo_RequerimientoRequerimientos" FromRole="Requerimientos" ToRole="Tipo_Requerimiento" />
+          <Property Name="Tipo_RequerimientoID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Estado" Relationship="Model.EstadoRequerimientos" FromRole="Requerimientos" ToRole="Estado" />
+          <Property Name="EstadoID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tipo_Requerimiento">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre_TipoReq" Type="String" Nullable="false" />
+          <NavigationProperty Name="Requerimientos" Relationship="Model.Tipo_RequerimientoRequerimientos" FromRole="Tipo_Requerimiento" ToRole="Requerimientos" />
+        </EntityType>
+        <EntityType Name="Estado">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre_estado" Type="String" Nullable="false" />
+          <NavigationProperty Name="Requerimientos" Relationship="Model.EstadoRequerimientos" FromRole="Estado" ToRole="Requerimientos" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" />
+          <Property Name="Correo" Type="String" Nullable="false" />
+          <Property Name="Contrasenia" Type="String" Nullable="false" />
+          <NavigationProperty Name="Rol" Relationship="Model.RolUsuarios" FromRole="Usuarios" ToRole="Rol" />
+          <Property Name="RolID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="RolRequerimientos">
+          <End Type="Model.Rol" Role="Rol" Multiplicity="1" />
+          <End Type="Model.Requerimientos" Role="Requerimientos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Requerimientos">
+              <PropertyRef Name="RolID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RolUsuarios">
+          <End Type="Model.Rol" Role="Rol" Multiplicity="1" />
+          <End Type="Model.Usuarios" Role="Usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Usuarios">
+              <PropertyRef Name="RolID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Tipo_RequerimientoRequerimientos">
+          <End Type="Model.Tipo_Requerimiento" Role="Tipo_Requerimiento" Multiplicity="1" />
+          <End Type="Model.Requerimientos" Role="Requerimientos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tipo_Requerimiento">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Requerimientos">
+              <PropertyRef Name="Tipo_RequerimientoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="EstadoRequerimientos">
+          <End Type="Model.Estado" Role="Estado" Multiplicity="1" />
+          <End Type="Model.Requerimientos" Role="Requerimientos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estado">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Requerimientos">
+              <PropertyRef Name="EstadoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="ModelContainer">
+    <EntitySetMapping Name="Rol">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Rol)">
+        <MappingFragment StoreEntitySet="Rol">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Nombre_Rol" ColumnName="Nombre_Rol" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Requerimientos">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Requerimientos)">
+        <MappingFragment StoreEntitySet="Requerimientos">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Prioridad" ColumnName="Prioridad" />
+          <ScalarProperty Name="RolID" ColumnName="RolID" />
+          <ScalarProperty Name="Tipo_RequerimientoID" ColumnName="Tipo_RequerimientoID" />
+          <ScalarProperty Name="EstadoID" ColumnName="EstadoID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tipo_Requerimiento">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Tipo_Requerimiento)">
+        <MappingFragment StoreEntitySet="Tipo_Requerimiento">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Nombre_TipoReq" ColumnName="Nombre_TipoReq" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Estado">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Estado)">
+        <MappingFragment StoreEntitySet="Estado">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Nombre_estado" ColumnName="Nombre_estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UsuariosSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Usuarios)">
+        <MappingFragment StoreEntitySet="UsuariosSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Correo" ColumnName="Correo" />
+          <ScalarProperty Name="Contrasenia" ColumnName="Contrasenia" />
+          <ScalarProperty Name="RolID" ColumnName="RolID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
